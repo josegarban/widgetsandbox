@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+{% load static %}
+
+<head>
+  <!-- <link rel="stylesheet" href="./master.css"> -->
+  <link rel="stylesheet" href="{% static "css/master.css" %}">
+</head>
+
+<body>
+  <h2>Ciudades</h2>
+  {% for city in cities %}
+    <p><strong>Ciudad</strong>: {{city.name}}</p>
+    <p><strong>Latitud</strong>: {{city.latitude}}</p>
+    <p><strong>Longitud</strong>: {{city.longitude}}</p>
+    <br>
+  {% endfor %}
+  <hr>
+  <h2>Selector</h2>
+  <div class="city-container">
+    {% for city in cities %}
+      <span class="city">{{city.name}}</span>
+    {% endfor %}
+
+      <!-- Arrows -->
+      <a class="prev" onclick="plusCities(-1)">&#10094;</a>
+      <a class="next" onclick="plusCities(1)">&#10095;</a>
+    </div>
+  </div>
+
+  <div class="">
+    <p id="demo"></p>
+    <button id="myBtn" type="button" name="button">Mostrar ciudad seleccionada</button>
+  </div>
+
+</body>
+
+
+<script type="text/javascript">
+  // Display city carousel
+
+  var cityIndex = 1;
+  showCities(cityIndex);
+
+  function plusCities(n) {
+    showCities(cityIndex += n);
+  }
+
+  function currentCity(n) {
+    showCities(cityIndex = n);
+  }
+
+  function showCities(n) {
+    var i;
+    var cities = document.getElementsByClassName("city");
+    if (n > cities.length) {cityIndex = 1}
+      if (n < 1) {cityIndex = cities.length}
+      for (i = 0; i < cities.length; i++) {
+        cities[i].style.display = "none";
+        cities[i].id = ""
+      }
+    cities[cityIndex-1].style.display = "block";
+    cities[cityIndex-1].id = "selectedCity";
+  }
+
+  // Display city once the form has been validated
+  function displayCity (){
+    var selectedCity = document.getElementById('selectedCity');
+    cityName = selectedCity.textContent;
+    document.getElementById("demo").innerHTML = cityName;
+    return city
+  }
+  document.getElementById("myBtn").addEventListener("click", displayCity);
+
+</script>
