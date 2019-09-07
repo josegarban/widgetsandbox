@@ -42,6 +42,7 @@ INSTALLED_APPS = [
 
     'credentials',
     'selector1',
+    'selector2',
 ]
 
 MIDDLEWARE = [
