@@ -1,9 +1,62 @@
+
 {% load static %}
 
-<div class="">
-  {% for object in objects %}
-    {{object.mydate}}<br>
-  {% endfor %}
-</div>
+<head>
+  <link rel="stylesheet" href="{% static "css/select2.css" %}">
+</head>
 
-<hr>
+<main>
+  <div class="">
+    {% for object in objects %}
+      {{object.mydate}}<br>
+    {% endfor %}
+  </div>
+
+  <br><hr><br>
+
+  <div class="date-wrapper">
+    <div id="left-arrow">
+      <a class="prev" onclick="getYesterday()">&#10094;</a>
+    </div>
+    <div class="date-main">
+        <div class="date-message">Introduzca el día</div>
+        <div id="today-text">Today</div>
+    </div>
+    <div id="right-arrow">
+      <a class="next" onclick="getTomorrow()">&#10095;</a>
+    </div>
+  </div>
+</main>
+
+<script type="text/javascript">
+  function getToday(){
+    var today = new Date();
+    todaytext = String(today.getDate()).padStart(2, '0') + "/" + String(today.getMonth() + 1).padStart(2, '0') + "/" + String(today.getFullYear());
+    document.getElementById("today-text").innerHTML = todaytext;
+    return today;
+  }
+  today = getToday();
+  // Display date carousel
+
+  function readToday(){
+    var initial = document.getElementById("today-text").innerHTML;
+    var today = initial.slice(3, 5) + "/" + initial.slice(0, 2) + "/" + initial.slice(6, 10)
+    today = new Date(today);
+    return today
+  }
+
+  function getTomorrow(){
+    var today = readToday();
+    today.setDate(today.getDate() + 1);
+    todaytext = String(today.getDate()).padStart(2, '0') + "/" + String(today.getMonth() + 1).padStart(2, '0') + "/" + String(today.getFullYear());
+    document.getElementById("today-text").innerHTML = todaytext;
+  }
+
+  function getYesterday(){
+    var today = readToday();
+    today.setDate(today.getDate() - 1);
+    todaytext = String(today.getDate()).padStart(2, '0') + "/" + String(today.getMonth() + 1).padStart(2, '0') + "/" + String(today.getFullYear());
+    document.getElementById("today-text").innerHTML = todaytext;
+  }
+
+</script>
