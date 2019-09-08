@@ -1,0 +1,84 @@
+
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+  <head>
+
+    <!-- [1 - LOAD LIBRARIES] -->
+    <link href="{% static 'datepicker/picker-dark.css' %}" rel="stylesheet">
+    <link href="{% static 'css/select2.css' %}" rel="stylesheet">
+    <script src="{% static 'datepicker/datepicker.js' %}"></script>
+    <style>
+      html, body { font-family: arial; }
+    </style>
+  </head>
+
+  <body>
+
+    <!-- [2 - DEFINE YOUR TEXT INPUT + CONTAINER] -->
+    <div class="date-wrapper" style="height:800px;">
+      <div id="left-arrow">
+        <a class="prev" onclick="getYesterday()">&#10094;</a>
+      </div>
+
+      <div class="date-main">
+          <div class="date-message">Introduzca el día</div>
+
+          <input type="text" id="input-inline"/>
+          <br><br>
+          <div id="pick-inline"></div>
+
+        <script>
+          window.addEventListener("load", function(){
+            // target input
+            picker.attach("input-popup");
+          });
+        </script>
+      </div>
+
+      <div id="right-arrow">
+        <a class="next" onclick="getTomorrow()">&#10095;</a>
+      </div>
+    </div>
+
+
+
+    <!-- [3 - ATTACH DATE PICKER] -->
+    <script>
+      window.addEventListener("load", function(){
+        // container + target input
+        picker.attach("pick-inline", "input-inline");
+      });
+
+      function getToday(){
+        var today = new Date();
+        todaytext = String(today.getFullYear()) + "-" + String(today.getMonth() + 1).padStart(2, '0') + "-" + String(today.getDate()).padStart(2, '0');
+        document.getElementById("input-inline").value = todaytext;
+        return today;
+      }
+
+      function readToday(){
+        var initial = document.getElementById("input-inline").value;
+        var today = initial.slice(5, 7) + "/" + initial.slice(9, 10) + "/" + initial.slice(0, 4)
+        today = new Date(today);
+        return today
+      }
+
+      function getTomorrow(){
+        var today = readToday();
+        today.setDate(today.getDate() + 1);
+        todaytext = String(today.getFullYear()) + "-" + String(today.getMonth() + 1).padStart(2, '0') + "-" + String(today.getDate()).padStart(2, '0');
+        document.getElementById("input-inline").value = todaytext;
+      }
+
+      function getYesterday(){
+        var today = readToday();
+        today.setDate(today.getDate() - 1);
+        todaytext = String(today.getFullYear()) + "-" + String(today.getMonth() + 1).padStart(2, '0') + "-" + String(today.getDate()).padStart(2, '0');
+        document.getElementById("input-inline").value = todaytext;
+      }
+
+    </script>
+  </body>
+</html>
