@@ -13,3 +13,9 @@ def Select2_2View(request):
     template    = 'select2_2.html'
     objects     = model.objects.all()
     return render(request, template, {'objects': objects})
+
+def Select2_3View(request):
+    model       = MyDate
+    template    = 'select2_3.html'
+    objects     = model.objects.all()
+    return render(request, template, {'objects': objects})

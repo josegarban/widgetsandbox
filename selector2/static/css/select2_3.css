@@ -1,0 +1,13 @@
+/*  Checkboxes */
+
+label:before {
+  content: url(../images/unchecked_checkbox.png);
+  position: absolute;
+  z-index: 100;
+}
+:checked+label:before {
+  content: url(../images/checked_checkbox.png);
+}
+input[type=checkbox] {
+  display: none;
+}

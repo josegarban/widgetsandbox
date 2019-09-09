@@ -1,0 +1,54 @@
+
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <link href="{% static 'datepicker/picker-dark.css' %}" rel="stylesheet">
+    <link href="{% static 'css/select2_3.css' %}" rel="stylesheet">
+    <script src="{% static 'datepicker/datepicker.js' %}"></script>
+  </head>
+
+  <body>
+    <p>Checkbox 1</p>
+    <div style="background:orange;width:100px;height:100px;">
+      <input type="checkbox" id="myCheckbox1"/>
+      <label for="myCheckbox1"></label>
+    </div>
+    <br><br>
+
+    <p>Checkbox 2</p>
+    <div>
+      <input type="checkbox" id="myCheckbox2"/>
+      <label for="myCheckbox2"></label>
+    </div>
+    <br><br>
+
+    <p>Checkbox 3</p>
+    <div>
+      <input type="checkbox" id="myCheckbox3"/>
+      <label for="myCheckbox3"></label>
+    </div>
+    <br><br>
+
+    <p onclick="displayCheckboxValues()">Click here to see the values: <span id="seecheckboxes"></span></p>
+  </body>
+
+  <script>
+    function getCheckboxes(){
+      // Returns a JS object with the values of your checkboxes
+      var checkboxNames = {checkbox1Name: "myCheckbox1", checkbox2Name: "myCheckbox2", checkbox3Name: "myCheckbox3"};
+      output = {};
+      output["checkbox1"] = document.getElementById("myCheckbox1").checked;
+      output["checkbox2"] = document.getElementById("myCheckbox2").checked;
+      output["checkbox3"] = document.getElementById("myCheckbox3").checked;
+      return output
+      }
+
+    function displayCheckboxValues(){
+      // See the values of your checkboxes
+      checkboxValues = getCheckboxes();
+      document.getElementById("seecheckboxes").innerText = JSON.stringify(output);
+    }
+  </script>
+</html>

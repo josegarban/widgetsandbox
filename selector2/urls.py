@@ -11,4 +11,7 @@ urlpatterns = [
     path('2/',
          views.Select2_2View,
          name='select2'),
+    path('3/',
+         views.Select2_3View,
+         name='select3'),
     ]
