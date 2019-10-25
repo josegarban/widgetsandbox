@@ -2,11 +2,9 @@
 
 <html>
 <head>
-  <script src="https://www.google.com/jsapi"></script>
+  <script src="https://www.gstatic.com/charts/loader.js"></script>
   <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
   <script src="{% static 'jquery.csv.js' %}"></script>
-
-  <script src="https://www.gstatic.com/charts/loader.js"></script>
 </head>
 
 <body>
@@ -16,7 +14,7 @@
 
   <script> // wait till the DOM is loaded
     $(function() { // grab the CSV
-      $.get("{% static 'kzn1993.csv' %}", function(csvString) {
+      $.get("{% static 'numbers.csv' %}", function(csvString) {
         // display the contents of the CSV
         $("#csv").html(csvString);
       });
@@ -32,21 +30,33 @@
     google.setOnLoadCallback(drawChart);
 
     function drawChart() {
-       $.get("{% static 'kzn1993.csv' %}", function(csvString) {
+       $.get("{% static 'numbers.csv' %}", function(csvString) {
           // transform the CSV string into a 2-dimensional array
           var arrayData = $.csv.toArrays(csvString, {onParseValue: $.csv.hooks.castToScalar});
           // this new DataTable object holds all the data
           var data = new google.visualization.arrayToDataTable(arrayData);
           var view = new google.visualization.DataView(data); view.setColumns([0,1]);
-          var options = { title: "KwaZulu-Natal Household Survey (1993)",
-                          hAxis: {title: data.getColumnLabel(0),
-                          minValue: data.getColumnRange(0).min,
-                          maxValue: data.getColumnRange(0).max},
-                          vAxis: {title: data.getColumnLabel(1),
-                          minValue: data.getColumnRange(1).min,
-                          maxValue: data.getColumnRange(1).max},
-                          legend: 'none' };
-          var chart = new google.visualization.ScatterChart(document.getElementById('chart')); chart.draw(view, options);
+          var options = {
+                          chart: {
+                            title: "Prices",
+                            legend: 'none'
+                          },
+                          width: 1600,
+                          height: 600,
+                          vAxis: {
+                            title: 'Price in USD',
+                            viewWindow: {
+                              min: 0,
+                            }
+                          },
+                          hAxis: {
+                            title: 'Time',
+                            format: 'dd/MM/yyyy HH:mm'
+                          }
+                         };
+          var chart = new google.charts.Line(document.getElementById('chart'));
+          chart.draw(view, google.charts.Line.convertOptions(options));
+          // var chart = new google.visualization.ScatterChart(document.getElementById('chart'));
        });
     }
 </script>

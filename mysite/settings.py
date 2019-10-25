@@ -43,6 +43,8 @@ INSTALLED_APPS = [
     'credentials',
     'selector1',
     'selector2',
+    'linechart1',
+    'linechart2',
 ]
 
 MIDDLEWARE = [
@@ -130,6 +132,8 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "selector1/static"),
     os.path.join(BASE_DIR, "selector2/static"),
+    os.path.join(BASE_DIR, "linechart1/static"),
+    os.path.join(BASE_DIR, "linechart2/static"),
 ]
 
 MEDIA_URL = '/media/'

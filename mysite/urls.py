@@ -25,6 +25,10 @@ urlpatterns = [
          include('selector1.urls', namespace = 'selector1')),
     path('selector2/',
          include('selector2.urls', namespace = 'selector2')),
+    path('linechart1/',
+         include('linechart1.urls', namespace = 'linechart1')),
+    path('linechart2/',
+         include('linechart2.urls', namespace = 'linechart2')),
      ]
 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
