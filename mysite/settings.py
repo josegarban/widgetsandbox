@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'selector2',
     'linechart1',
     'linechart2',
+    'linechart3',
     'annotatedtimeline1',
     'annotatedtimeline2',
 ]
@@ -69,6 +70,7 @@ TEMPLATES = [
             'selector2/templates',
             'linechart1/templates',
             'linechart2/templates',
+            'linechart3/templates',
             'annotatedtimeline1/templates',
             'annotatedtimeline2/templates',
             ],
@@ -141,6 +143,7 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "selector2/static"),
     os.path.join(BASE_DIR, "linechart1/static"),
     os.path.join(BASE_DIR, "linechart2/static"),
+    os.path.join(BASE_DIR, "linechart3/static"),
     os.path.join(BASE_DIR, "annotatedtimeline1/static"),
     os.path.join(BASE_DIR, "annotatedtimeline2/static"),
 ]
