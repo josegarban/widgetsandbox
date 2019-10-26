@@ -29,6 +29,10 @@ urlpatterns = [
          include('linechart1.urls', namespace = 'linechart1')),
     path('linechart2/',
          include('linechart2.urls', namespace = 'linechart2')),
+    path('annotatedtimeline1/',
+         include('annotatedtimeline1.urls', namespace = 'annotatedtimeline1')),
+    path('annotatedtimeline2/',
+         include('annotatedtimeline2.urls', namespace = 'annotatedtimeline2')),
      ]
 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

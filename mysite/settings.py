@@ -45,6 +45,8 @@ INSTALLED_APPS = [
     'selector2',
     'linechart1',
     'linechart2',
+    'annotatedtimeline1',
+    'annotatedtimeline2',
 ]
 
 MIDDLEWARE = [
@@ -64,6 +66,11 @@ TEMPLATES = [
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
             'selector1/templates',
+            'selector2/templates',
+            'linechart1/templates',
+            'linechart2/templates',
+            'annotatedtimeline1/templates',
+            'annotatedtimeline2/templates',
             ],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -134,6 +141,8 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "selector2/static"),
     os.path.join(BASE_DIR, "linechart1/static"),
     os.path.join(BASE_DIR, "linechart2/static"),
+    os.path.join(BASE_DIR, "annotatedtimeline1/static"),
+    os.path.join(BASE_DIR, "annotatedtimeline2/static"),
 ]
 
 MEDIA_URL = '/media/'
