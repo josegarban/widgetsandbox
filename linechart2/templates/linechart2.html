@@ -9,7 +9,7 @@
 
 <body>
   <div id="message"></div>
-  <div id="csv"></div>
+  <!-- <div id="csv"></div> -->
   <div id="chart"></div>
 
   <script> // wait till the DOM is loaded
@@ -33,9 +33,11 @@
        $.get("{% static 'numbers.csv' %}", function(csvString) {
           // transform the CSV string into a 2-dimensional array
           var arrayData = $.csv.toArrays(csvString, {onParseValue: $.csv.hooks.castToScalar});
+          console.log(arrayData);
           // this new DataTable object holds all the data
           var data = new google.visualization.arrayToDataTable(arrayData);
-          var view = new google.visualization.DataView(data); view.setColumns([0,1]);
+          var view = new google.visualization.DataView(data);
+          view.setColumns([0,1]);
           var options = {
                           chart: {
                             title: "Prices",
@@ -51,7 +53,18 @@
                           },
                           hAxis: {
                             title: 'Time',
-                            format: 'dd/MM/yyyy HH:mm'
+                            format: 'dd-MM',
+                            gridlines: {
+                              count: 10,
+                              units: {
+                                years: {format: ['YY']},
+                                months: {format: ['mm']},
+                                days: {format: ['dd']},
+                                minutes: {format: ['']},
+                                seconds: {format: ['']},
+                                miliseconds: {format: ['']},
+                              }
+                            }
                           }
                          };
           var chart = new google.charts.Line(document.getElementById('chart'));
