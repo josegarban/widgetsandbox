@@ -1,0 +1,104 @@
+{% load static %}
+
+<html>
+<head>
+  <script src="https://www.gstatic.com/charts/loader.js"></script>
+  <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+  <script src="{% static 'jquery.csv.js' %}"></script>
+</head>
+
+<body>
+  <div id="message"></div>
+  <!-- <div id="csv"></div> -->
+  <div id="chart"></div>
+
+  <script> // wait till the DOM is loaded
+    $(function() { // grab the CSV
+      $.get("{% static 'numbers3.csv' %}", function(csvString) {
+        // display the contents of the CSV
+        $("#csv").html(csvString);
+      });
+    });
+  </script>
+
+  <script type="text/javascript"> // load the visualisation API, everything first
+      google.load('visualization', '1', { packages: ['corechart', 'controls'] });
+      google.charts.load('current', {'packages':['line']})
+  </script>
+
+  <script type="text/javascript">
+    google.setOnLoadCallback(drawChart);
+
+    function strToDT(inputArray, i){
+      // convert a column in an array containing strings representing datetimes to datetime objects
+      // i is the index of the column containing the strings to be converted into datetimes, probably 0
+      var outputArray = [];
+      for (d in inputArray){
+        outputArray[d] = inputArray[d];
+        // d > 0 assuming the first row contains headers
+        if (d > 0) {
+          var dtS = inputArray[d][i];
+          var year = dtS.slice(0,4);
+          var month = dtS.slice(5,7);
+          var day = dtS.slice(8,10);
+          var hour = dtS.slice(11,13);
+          var minute = dtS.slice(14,16);
+          var second = dtS.slice(17,19);
+          var dtD = new Date( year, month-1, day, hour, minute, second);
+          outputArray[d][i] = dtD;
+        };
+      };
+      return outputArray;
+    };
+
+    function drawChart() {
+       $.get("{% static 'numbers3.csv' %}", function(csvString) {
+          // transform the CSV string into a 2-dimensional array
+          var arrayData = $.csv.toArrays(csvString, {onParseValue: $.csv.hooks.castToScalar});
+          // change text representation of dates into a datatime object
+          var arrayDataDT = strToDT(arrayData, 0);
+          console.log(arrayDataDT);
+
+          // this new DataTable object holds all the data
+          var data = new google.visualization.arrayToDataTable(arrayDataDT);
+          var view = new google.visualization.DataView(data);
+          view.setColumns([0,1,3,5]);
+          var options = {
+                          chart: {
+                            title: "Prices",
+                            legend: 'none'
+                          },
+                          width: 1600,
+                          height: 600,
+                          vAxis: {
+                            title: 'USD',
+                            viewWindow: {
+                              min: 0,
+                            }
+                          },
+                          hAxis: {
+                            title: 'Time',
+                            format: 'dd-MM',
+                            gridlines: {
+                              count: 10,
+                              units: {
+                                years: {format: ['YY']},
+                                months: {format: ['mm']},
+                                days: {format: ['dd']},
+                                minutes: {format: ['']},
+                                seconds: {format: ['']},
+                                miliseconds: {format: ['']},
+                              }
+                            }
+                          }
+                         };
+          var chart = new google.charts.Line(document.getElementById('chart'));
+          chart.draw(view, google.charts.Line.convertOptions(options));
+          // var chart = new google.visualization.ScatterChart(document.getElementById('chart'));
+       });
+    }
+</script>
+
+
+</body>
+</html>

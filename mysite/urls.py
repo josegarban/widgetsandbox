@@ -31,6 +31,8 @@ urlpatterns = [
          include('linechart2.urls', namespace = 'linechart2')),
     path('linechart3/',
          include('linechart3.urls', namespace = 'linechart3')),
+    path('linechart4/',
+         include('linechart4.urls', namespace = 'linechart4')),
     path('annotatedtimeline1/',
          include('annotatedtimeline1.urls', namespace = 'annotatedtimeline1')),
     path('annotatedtimeline2/',
