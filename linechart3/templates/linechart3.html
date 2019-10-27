@@ -14,7 +14,7 @@
 
   <script> // wait till the DOM is loaded
     $(function() { // grab the CSV
-      $.get("{% static 'numbers.csv' %}", function(csvString) {
+      $.get("{% static 'numbers3.csv' %}", function(csvString) {
         // display the contents of the CSV
         $("#csv").html(csvString);
       });
@@ -52,7 +52,7 @@
     };
 
     function drawChart() {
-       $.get("{% static 'numbers.csv' %}", function(csvString) {
+       $.get("{% static 'numbers3.csv' %}", function(csvString) {
           // transform the CSV string into a 2-dimensional array
           var arrayData = $.csv.toArrays(csvString, {onParseValue: $.csv.hooks.castToScalar});
           // change text representation of dates into a datatime object
@@ -62,7 +62,7 @@
           // this new DataTable object holds all the data
           var data = new google.visualization.arrayToDataTable(arrayDataDT);
           var view = new google.visualization.DataView(data);
-          view.setColumns([0,1]);
+          view.setColumns([0,1,3,5]);
           var options = {
                           chart: {
                             title: "Prices",
@@ -71,7 +71,7 @@
                           width: 1600,
                           height: 600,
                           vAxis: {
-                            title: 'Price in USD',
+                            title: 'USD',
                             viewWindow: {
                               min: 0,
                             }
